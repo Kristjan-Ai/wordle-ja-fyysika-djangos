@@ -15,6 +15,8 @@ def algus(request):
     if request.method == "POST":
         mangu_id = request.POST.get("mangu_id")
         mangu_objekt = mang.objects.get(id=mangu_id)
+        mitmes = mangu_objekt.mitmes
+        print(mangu_objekt)
     else:
         mitmes_suvaline = r.randint(0, sonade_arv)
         oige_sona  = sonade_list[mitmes_suvaline]
