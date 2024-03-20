@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pallivise</title>
+</head>
+<body>
+    <div class="header">
+        <h1>Palliviske kalkulaator</h1>
+    </div>
+    <div class="container">
+        <form method="POST" action="{% url 'calculate' %}">
+            <p>Komakoht eralda punktiga!</p>
+            {% csrf_token %}
+            <div class="textivali">
+                <label for="algkiirus" class="text1">Algkiirus:</label>
+                <input type="text" id="algkiirus" name="algkiirus" placeholder="Sisesta algkiirus">
+                <span class="unit">m/s</span>  
+            </div>
+
+            <div class="textivali">
+                <label for="nurk" class="text1">Viskenurk:</label>
+                <input type="text" id="nurk" name="nurk" placeholder="Sisesta viskenurk">
+                <span class="unit">°</span>  
+            </div>
+
+            <div class="textivali">
+                <label for="korgus" class="text1">Viskekõrgus:</label>
+                <input type="text" id="korgus" name="korgus" placeholder="Sisesta viskekõrgus">
+                <span class="unit">m</span>  
+            </div>
+
+            <div class="dropdown">
+                <select name="planeet" id="planeet">
+                    <option value="paike">Päike</option>
+                    <option value="merkuur">Merkuur</option>
+                    <option value="veenus">Veenus</option>
+                    <option value="maa" selected>Maa</option>
+                    <option value="kuu">Kuu</option>
+                    <option value="marss">Marss</option>
+                    <option value="jupiter">Jupiter</option>
+                    <option value="saturn">Saturn</option>
+                    <option value="uraan">Uraan</option>
+                    <option value="neptuun">Neptuun</option>
+                    <option value="pluuto">Pluuto</option>
+                </select>
+            </div>
+
+            <div class="textivali">
+                <button type="submit" class="nupp">Kalkuleeri</button>
+            </div>
+        </form>
+        {% if kaugus %}
+        <div class="tulemus">
+            <h3>Tulemus</h3>
+            <div class="kast">
+                
+                    <p>Viske kaugus: {{ kaugus|floatformat:4 }} m</p>
+                    <p>Lennuaeg: {{ aeg_lennul|floatformat:4 }} s</p>
+                    <p>Maksimaalne kõrgus: {{ max_korgus|floatformat:4 }} m</p>
+                    <p>Haripunkti jõudmiseks kulunud aeg: {{ aeg_haripunktis|floatformat:4 }} s</p>
+                    <p>Läbitud horisontaalne kaugus haripunktis: {{ kaugus_haripunktis|floatformat:4 }} m</p>
+                    <p>Lõppkiirus vahetult enne kokkupuudet maapinnaga: {{ loppkiirus|floatformat:4 }} m/s</p>
+                    <p>Maandumisnurk: {{ maandumisnurk|floatformat:4 }}°</p>
+                    
+                {% endif %}
+                <div>
+                    {% if graafik %}
+                        <img src="data:image/png;base64,{{ graafik }}" alt="Graafik" />
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<style>
+    .header {
+        width:100%;
+        height:100px;
+        background-color:darkgoldenrod;
+        color:rgb(0, 0, 0);
+        padding-top: 15px;
+        padding-left:20px;
+        border-radius: 5px;
+    }
+
+    .textivali {
+         display:flex;
+         align-items: center;
+         margin-bottom: 10px;
+    }
+    .text1 {
+        font-weight: bold;
+        width: 100px;
+    }
+    .textivali input {
+        border:2px solid black;
+        padding: 5px;
+    }
+    .unit {
+        margin-left: 5px;
+    }
+    .container {
+        padding-top: 20px;
+    }
+    .dropdown select {
+        padding: 8px;
+        font-size: 20px;
+    }
+    .nupp {
+        background-color: aquamarine;
+        color:black;
+        padding: 8px 16px;
+        margin-top: 10px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+    .nupp:hover {
+        background-color: rgb(0, 99, 66);
+    }
+    .tulemus{
+        padding: 10px;
+        background-color: aqua;
+        border: 1px solid gray;
+        border-radius: 5px;
+        width: 700px;
+    }
+    .kast{
+        width: 690px;
+        height: 800px;
+        background-color:white;
+        border: 1px solid gray;
+        border-radius: 5px;
+        padding-left:10px;
+    }
+</style>
+</html>
