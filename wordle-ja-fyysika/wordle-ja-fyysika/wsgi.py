@@ -1,5 +1,5 @@
 """
-WSGI config for parim_wordle_universumis project.
+WSGI config for wordle-ja-fyysika project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'parim_wordle_universumis.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'wordle-ja-fyysika.settings')
 
 application = get_wsgi_application()

@@ -1,5 +1,5 @@
 """
-ASGI config for parim_wordle_universumis project.
+ASGI config for wordle-ja-fyysika project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.asgi import get_asgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'parim_wordle_universumis.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'wordle-ja-fyysika.settings')
 
 application = get_asgi_application()
