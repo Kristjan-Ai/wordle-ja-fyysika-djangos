@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html>
+    <form action="{%url "algus"%}" method="POST">
+        <b>Vali mäng id-ga:</b>
+        {% csrf_token %}
+        <input type="number" id="mangu_id" name="mangu_id" value="" maxlength="1" autocomplete="off" autofocus="True">
+        <div><input type="submit" id="submit" name="submit" value="Vali mäng"></div>
+    </form>
+</html>
