@@ -5,7 +5,7 @@ import django
 
 class mang(models.Model):
     oige_sona = models.CharField(max_length=200)
-    mitmes = models.IntegerField()
+    mitmes = models.IntegerField(default=1)
     sona1 = models.JSONField(default=list(("", "", "", "", "")))
     sona1_varv = models.JSONField(default=list(("white", "white", "white", "white", "white")))
     sona2 = models.JSONField(default=list(("", "", "", "", "")))

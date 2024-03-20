@@ -7,6 +7,8 @@ from Sõnade_loend.valmis_sonad import sonade_list
 import random as r
 
 # Create your views here.
+def valik(request):
+    return render(request, "wordle/valik.html")
 
 def algus(request):
     global mangu_id
@@ -17,6 +19,24 @@ def algus(request):
         mangu_objekt = mang.objects.get(id=mangu_id)
         mitmes = mangu_objekt.mitmes
         print(mangu_objekt)
+        sona1 = mangu_objekt.sona1
+        sona1.extend(mangu_objekt.sona1_varv)
+        sona2 = mangu_objekt.sona2
+        sona2.extend(mangu_objekt.sona2_varv)
+        sona3 = mangu_objekt.sona3
+        sona3.extend(mangu_objekt.sona3_varv)
+        sona4 = mangu_objekt.sona4
+        sona4.extend(mangu_objekt.sona4_varv)
+        sona5 = mangu_objekt.sona5
+        sona5.extend(mangu_objekt.sona5_varv)
+        context = {
+            "sona1": sona1,
+            "sona2": sona2,
+            "sona3": sona3,
+            "sona4": sona4,
+            "sona5": sona5,
+            "sonum": "Meil on "+str(sonade_arv+1)+" viietähelist sõna.",
+            "mitmes": mitmes,}
     else:
         mitmes_suvaline = r.randint(0, sonade_arv)
         oige_sona  = sonade_list[mitmes_suvaline]
@@ -25,7 +45,8 @@ def algus(request):
         mangu_id = uus_mang.id
         mitmes = 1
         print(uus_mang)
-    return render(request, "wordle/pealeht.html", {"sonum": "Meil on "+str(sonade_arv+1)+" viietähelist sõna.", "mitmes": mitmes,})
+        context = {"sonum": "Meil on "+str(sonade_arv+1)+" viietähelist sõna.", "mitmes": mitmes,}
+    return render(request, "wordle/pealeht.html", context)
 
 def kontroll(request):
     if request.method=="POST":
