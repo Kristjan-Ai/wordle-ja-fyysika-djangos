@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            .Row,
+            .Row-letter,
+            .Row-letter-input {
+                display: flex;
+                justify-content: center
+            }
+    
+            .Row-letter {
+                align-items: center;
+                border: 2px solid #dee1e9;
+                font-size: 28px;
+                font-weight: 700;
+                height: 56px;
+                margin: 3px;
+                text-transform: uppercase;
+                width: 56px;
+                border-radius: 5px;
+                color: #393e4c;
+                background: white;
+            }
+
+            .Row-letter-input {
+                text-align: center;
+                align-items: center;
+                border: 2px solid #dee1e9;
+                font-size: 28px;
+                font-weight: 700;
+                height: 56px;
+                margin: 3px;
+                text-transform: uppercase;
+                width: 56px;
+                border-radius: 5px;
+                color: #393e4c;
+                background: white;
+            }
+
+            .Row-letter.selected, input.focused {
+                border-color: #a7adc0
+            }
+    
+            html.dark .Row-letter {
+                color: #fff;
+                background: #191a24;
+                border: 2px solid #414458
+            }
+    
+            html.dark .Row-letter.selected {
+                border-color: #7b7f98
+            }
+    
+            sup {
+                top: -1.5em;
+                width: 0;
+                font-size: 11px
+            }
+    
+            input {
+                text-align: center;
+            }
+    
+            form {
+                margin-left: auto;
+                margin-right: auto;
+            }
+    
+            #submit {
+                width: auto !important;
+                margin-top: 10px;
+                margin-bottom: 10px;
+            }
+    
+            html {
+                margin-left: auto;
+                margin-right: auto;
+                text-align: center;
+            }
+            a {
+            padding: 6px;
+            border: 1px solid black;
+            border-radius: 5px;            
+            }
+            a:hover {
+                background-color: aqua;
+            }
+        </style>
+    </head>
+    <body>
+        <header style="border: black;border-bottom-style: solid;padding-bottom: 1%; margin-bottom: 1%;">
+            <div style="display: flex; flex: 1 1 auto; text-align: center;">
+                <b style="text-align: right; display: flex; flex: 1 1 auto; margin: auto;">Mängu id: {{mangu_id}}</b>
+                <a href="{%url "algus"%}" style="text-align: left; display: flex; flex: 0 1 auto; margin:auto; margin-right: 0.5%;">Uus mäng</a>
+                <a href="{%url "valik"%}" style="text-align: left; display: flex; flex: 0 1 auto; margin:auto">Avaleht</a>
+            </div>
+        </header>
+        <div class="game_rows">
+            <h1>Wordle</h1>
+            <div class="Row">
+                <div style="background-color: {{sona1.5}};" class="Row-letter" data-animation="none">
+                    {{ sona1.0 }}
+                    <sup style="display: none;"></sup>
+                </div>
+                <div style="background-color: {{sona1.6}};" class="Row-letter" data-animation="none">
+                    {{sona1.1}}
+                    <sup style="display: none;">
+                    </sup>
+                </div>
+                <div style="background-color: {{sona1.7}};" class="Row-letter" data-animation="none">
+                    {{sona1.2}}
+                    <sup style="display: none;">
+                    </sup>
+                </div>
+                <div style="background-color: {{sona1.8}};" class="Row-letter" data-animation="none">
+                    {{sona1.3}}
+                    <sup style="display: none;">
+                    </sup>
+                </div>
+                <div style="background-color: {{sona1.9}};" class="Row-letter" data-animation="none">
+                    {{sona1.4}}
+                    <sup style="display: none;">
+                    </sup>
+                </div>
+            </div>
+            <div class="Row">
+                <div style="background-color: {{sona2.5}};" class="Row-letter" data-animation="none">
+                    {{ sona2.0 }}
+                    <sup style="display: none;"></sup>
+                    </sup>
+                </div>
+                <div style="background-color: {{sona2.6}};" class="Row-letter" data-animation="none">
+                    {{ sona2.1 }}
+                    <sup style="display: none;"></sup>
+                    </sup>
+                </div>
+                <div style="background-color: {{sona2.7}};" class="Row-letter" data-animation="none">
+                    {{ sona2.2 }}
+                    <sup style="display: none;"></sup>
+                    </sup>
+                </div>
+                <div style="background-color: {{sona2.8}};" class="Row-letter" data-animation="none">
+                    {{ sona2.3 }}
+                    <sup style="display: none;"></sup>
+                    </sup>
+                </div>
+                <div style="background-color: {{sona2.9}};" class="Row-letter" data-animation="none">
+                    {{ sona2.4 }}
+                    <sup style="display: none;"></sup>
+                    </sup>
+                </div>
+            </div>
+            <div class="Row">
+                <div style="background-color: {{sona3.5}};" class="Row-letter" data-animation="none">
+                    {{ sona3.0 }}
+                    <sup style="display: none;"></sup>
+                    </sup>
+                </div>
+                <div style="background-color: {{sona3.6}};" class="Row-letter" data-animation="none">
+                    {{ sona3.1 }}
+                    <sup style="display: none;"></sup>
+                    </sup>
+                </div>
+                <div style="background-color: {{sona3.7}};" class="Row-letter" data-animation="none">
+                    {{ sona3.2 }}
+                    <sup style="display: none;"></sup>
+                    </sup>
+                </div>
+                <div style="background-color: {{sona3.8}};" class="Row-letter" data-animation="none">
+                    {{ sona3.3 }}
+                    <sup style="display: none;"></sup>
+                    </sup>
+                </div>
+                <div style="background-color: {{sona3.9}};" class="Row-letter" data-animation="none">
+                    {{ sona3.4 }}
+                    <sup style="display: none;"></sup>
+                    </sup>
+                </div>
+            </div>
+            <div class="Row">
+                <div style="background-color: {{sona4.5}};" class="Row-letter" data-animation="none">
+                    {{ sona4.0 }}
+                    <sup style="display: none;"></sup>
+                    </sup>
+                </div>
+                <div style="background-color: {{sona4.6}};" class="Row-letter" data-animation="none">
+                    {{ sona4.1 }}
+                    <sup style="display: none;"></sup>
+                    </sup>
+                </div>
+                <div style="background-color: {{sona4.7}};" class="Row-letter" data-animation="none">
+                    {{ sona4.2 }}
+                    <sup style="display: none;"></sup>
+                    </sup>
+                </div>
+                <div style="background-color: {{sona4.8}};" class="Row-letter" data-animation="none">
+                    {{ sona4.3 }}
+                    <sup style="display: none;"></sup></sup>
+                </div>
+                <div style="background-color: {{sona4.9}};" class="Row-letter" data-animation="none">
+                    {{ sona4.4 }}
+                    <sup style="display: none;"></sup></sup>
+                </div>
+            </div>
+            <div class="Row">
+                <div style="background-color: {{sona5.5}};" class="Row-letter" data-animation="none">
+                    {{ sona5.0 }}
+                    <sup style="display: none;"></sup>
+                    </sup>
+                </div>
+                <div style="background-color: {{sona5.6}};" class="Row-letter" data-animation="none">
+                    {{ sona5.1 }}
+                    <sup style="display: none;"></sup>
+                    </sup>
+                </div>
+                <div style="background-color: {{sona5.7}};" class="Row-letter" data-animation="none">
+                    {{ sona5.2 }}
+                    <sup style="display: none;"></sup>
+                    </sup>
+                </div>
+                <div style="background-color: {{sona5.8}};" class="Row-letter" data-animation="none">
+                    {{ sona5.3 }}
+                    <sup style="display: none;"></sup>
+                    </sup>
+                </div>
+                <div style="background-color: {{sona5.9}};" class="Row-letter" data-animation="none">
+                    {{ sona5.4 }}
+                    <sup style="display: none;"></sup>
+                    </sup>
+                </div>
+            </div>
+        </div>
+    <div>
+    {%if sonum != "Arvasid ära!" and mitmes < 6%}
+        <form action="{%url "kontroll"%}" method="POST">
+            {% csrf_token %}
+            <div class="Row">
+                <input class="Row-letter-input" type="text" name="taht1" value="" maxlength="1" autocomplete="off" autofocus="True">
+                <input class="Row-letter-input" type="text" name="taht2" value="" maxlength="1" autocomplete="off">
+                <input class="Row-letter-input" type="text" name="taht3" value="" maxlength="1" autocomplete="off">
+                <input class="Row-letter-input" type="text" name="taht4" value="" maxlength="1" autocomplete="off">
+                <input class="Row-letter-input" type="text" name="taht5" value="" maxlength="1" autocomplete="off">
+            </div>
+            <div style="display: none;"><input type="submit" id="submit" name="submit" value="Kontroll"></div>
+        </form>
+    </div>
+    
+    <b>{{sonum}}</b>
+    {%else%}
+    <div style="margin-top: 1%;">
+    <b>{{sonum}}</b>
+    <a href="{%url "algus"%}">Uus mäng</a>
+    </div>
+    {%endif%}
+    
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+        <script>
+            $(document).ready(function(){
+                $('input').keyup(function(){
+                    if($(this).val().length==$(this).attr("maxlength")){
+                        $(this).next().focus();
+                    }
+                });
+            });
+        </script>
+    </body>
+</html>

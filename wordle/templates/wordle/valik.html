@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html>
+    <a style="text-align: left !important;" href="{%url "algus"%}">Uus mäng</a>
+    <form action="{%url "algus"%}" method="POST">
+        <b>Vali mäng id-ga:</b>
+        {% csrf_token %}
+        <input type="number" id="mangu_id" name="mangu_id" value="" autocomplete="off" autofocus="True">
+        <div><input type="submit" id="submit" name="submit" value="Vali mäng"></div>
+    </form>
+    <a style="text-align: left !important;" href="{%url "calculate"%}">Füüsika</a>
+</html>
