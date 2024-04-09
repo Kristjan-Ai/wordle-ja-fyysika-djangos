@@ -1,92 +1,8 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <style>
-            .Row,
-            .Row-letter,
-            .Row-letter-input {
-                display: flex;
-                justify-content: center
-            }
-    
-            .Row-letter {
-                align-items: center;
-                border: 2px solid #dee1e9;
-                font-size: 28px;
-                font-weight: 700;
-                height: 56px;
-                margin: 3px;
-                text-transform: uppercase;
-                width: 56px;
-                border-radius: 5px;
-                color: #393e4c;
-                background: white;
-            }
-
-            .Row-letter-input {
-                text-align: center;
-                align-items: center;
-                border: 2px solid #dee1e9;
-                font-size: 28px;
-                font-weight: 700;
-                height: 56px;
-                margin: 3px;
-                text-transform: uppercase;
-                width: 56px;
-                border-radius: 5px;
-                color: #393e4c;
-                background: white;
-            }
-
-            .Row-letter.selected, input.focused {
-                border-color: #a7adc0
-            }
-    
-            html.dark .Row-letter {
-                color: #fff;
-                background: #191a24;
-                border: 2px solid #414458
-            }
-    
-            html.dark .Row-letter.selected {
-                border-color: #7b7f98
-            }
-    
-            sup {
-                top: -1.5em;
-                width: 0;
-                font-size: 11px
-            }
-    
-            input {
-                text-align: center;
-            }
-    
-            form {
-                margin-left: auto;
-                margin-right: auto;
-            }
-    
-            #submit {
-                width: auto !important;
-                margin-top: 10px;
-                margin-bottom: 10px;
-            }
-    
-            html {
-                margin-left: auto;
-                margin-right: auto;
-                text-align: center;
-            }
-            a {
-            padding: 6px;
-            border: 1px solid black;
-            border-radius: 5px;            
-            }
-            a:hover {
-                background-color: aqua;
-            }
-        </style>
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'wordle/wordle.css' %}">
     </head>
     <body>
         <header style="border: black;border-bottom-style: solid;padding-bottom: 1%; margin-bottom: 1%;">
@@ -242,7 +158,10 @@
                 <input class="Row-letter-input" type="text" name="taht4" value="" maxlength="1" autocomplete="off">
                 <input class="Row-letter-input" type="text" name="taht5" value="" maxlength="1" autocomplete="off">
             </div>
-            <div style="display: none;"><input type="submit" id="submit" name="submit" value="Kontroll"></div>
+            <div style="display: none;">
+                <input type="submit" id="submit" name="submit" value="Kontroll">
+                <input type="hidden" name="mangu_id" value="{{mangu_id}}">
+            </div>
         </form>
     </div>
     

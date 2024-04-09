@@ -1,11 +1,25 @@
 <!DOCTYPE html>
 <html>
-    <a style="text-align: left !important;" href="{%url "algus"%}">Uus mäng</a>
+    <head>
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'wordle/valik.css' %}">
+    </head>
+    <body style="background-image: url({% static 'wordle/taustapilt.jpeg' %});">
+    <div class="block">
+    <h2>Eestikeelne wordle</h2>
     <form action="{%url "algus"%}" method="POST">
-        <b>Vali mäng id-ga:</b>
         {% csrf_token %}
-        <input type="number" id="mangu_id" name="mangu_id" value="" autocomplete="off" autofocus="True">
-        <div><input type="submit" id="submit" name="submit" value="Vali mäng"></div>
+        <div class="item"><input class="link" type="submit" id="vali" name="submit" value="Alusta mängu"></div>
+        <b>Vali mäng id-ga:</b>
+        <div class="tooltip">
+            <input type="number" id="mangu_id" name="mangu_id" value="" autocomplete="off" autofocus="True">
+            <span class="tooltiptext">Jäta tühjaks, et alustada uut mängu</span>
+        </div>
     </form>
-    <a style="text-align: left !important;" href="{%url "calculate"%}">Füüsika</a>
+    </div>
+    <div class="block">
+        <h2>Palliviske simulaator</h2>
+        <a class="link" href="{%url "calculate"%}">Füüsika</a>
+    </div>
+</body>
 </html>

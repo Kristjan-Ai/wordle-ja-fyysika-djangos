@@ -11,10 +11,8 @@ def valik(request):
     return render(request, "wordle/valik.html")
 
 def algus(request):
-    global mangu_id
-    global mitmes
     sonade_arv = len(sonade_list)-1
-    if request.method == "POST" and request.POST.get("mangu_id")!="":
+    if request.method == "POST" and request.POST.get("mangu_id")!="" and int(request.POST.get("mangu_id"))>=0:
         mangu_id = request.POST.get("mangu_id")
         mangu_objekt = mang.objects.get(id=mangu_id)
         mitmes = mangu_objekt.mitmes
@@ -51,11 +49,11 @@ def algus(request):
 
 def kontroll(request):
     if request.method=="POST":
-        global mitmes
-        global mangu_id
+        mangu_id = request.POST.get("mangu_id")
+        mangu_objekt = mang.objects.get(id=mangu_id)
+        mitmes = mangu_objekt.mitmes
         print("mitmes:", mitmes)
         sona = request.POST.get("taht1")+request.POST.get("taht2")+request.POST.get("taht3")+request.POST.get("taht4")+request.POST.get("taht5")
-        mangu_objekt = mang.objects.get(id=mangu_id)
         oige_sona = mangu_objekt.oige_sona
         #salvesta sona vastavalt mitmes on ning leia oiged varvid kastide jaoks
         sona_pole = False
@@ -197,7 +195,9 @@ def kontroll(request):
         if sona_pole:
             sonum = "Sellist eestikeelset sõna meil pole, proovi mõnda teist!"
         else:
-            mitmes += 1    
+            mitmes += 1
+            mangu_objekt.mitmes = mitmes
+            mangu_objekt.save()   
             sonum = ""
         context = {
             "sona1": sona1,
@@ -218,4 +218,4 @@ def kontroll(request):
         else:
             return render(request, "wordle/wordle.html", context)
     elif request.method=="GET":
-        return HttpResponseRedirect(reverse("algus"))
+        return HttpResponseRedirect(reverse("valik"))

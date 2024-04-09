@@ -1,0 +1,63 @@
+body {
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+    background-size: cover;
+}
+.block {
+    margin-top: 60px;
+    margin-bottom: 60px;
+    margin-left: 36%;
+    margin-right: 36%;
+    padding: 1%;
+    border: 2px solid black;
+    border-radius: 5px;
+    background-color: rgb(255, 255, 255, 0.6);
+    fill-opacity: 0.6;
+}
+.item {
+    margin: 20px;
+    text-align: center;
+}
+.link {
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+}
+a, #vali {
+    font-size: 15px;
+    border: 1px solid black;
+    border-radius: 5px;
+    text-decoration: none;
+    background-color: white;
+    color: blue;
+    font-family: 'Courier New', Courier, monospace;
+}
+a:hover, #vali:hover {
+    background-color: aqua;
+}
+.tooltip {
+    margin: 20px;
+    position: relative;
+    display: inline-block;
+  }
+  
+  /* Tooltip text */
+  .tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+   
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    z-index: 1;
+  }
+  
+  /* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
