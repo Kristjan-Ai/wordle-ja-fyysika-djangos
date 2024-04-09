@@ -12,11 +12,13 @@ def valik(request):
 
 def algus(request):
     sonade_arv = len(sonade_list)-1
+    # Teeb vahet uuel mängul ja valitud id-ga mängul
     if request.method == "POST" and request.POST.get("mangu_id")!="" and int(request.POST.get("mangu_id"))>=0:
         mangu_id = request.POST.get("mangu_id")
         mangu_objekt = mang.objects.get(id=mangu_id)
         mitmes = mangu_objekt.mitmes
         print(mangu_objekt)
+        # Teeb listid värvide ja tähtedega template'i saatmiseks
         sona1 = mangu_objekt.sona1
         sona1.extend(mangu_objekt.sona1_varv)
         sona2 = mangu_objekt.sona2
