@@ -7,47 +7,55 @@ from Sõnade_loend.valmis_sonad import sonade_list
 import random as r
 
 # Create your views here.
-def valik(request):
-    return render(request, "wordle/valik.html")
+def valik(request, viga):
+    vead = {
+        1:"Sellise id-ga mängu ei ole!"
+    }
+    sonum = vead[viga]
+    return render(request, "wordle/valik.html", sonum)
 
 def algus(request):
     sonade_arv = len(sonade_list)-1
+    mitmes_suvaline = r.randint(0, sonade_arv)
+    oige_sona  = sonade_list[mitmes_suvaline]
     # Teeb vahet uuel mängul ja valitud id-ga mängul
     if request.method == "POST" and request.POST.get("mangu_id")!="" and int(request.POST.get("mangu_id"))>=0:
         mangu_id = request.POST.get("mangu_id")
-        mangu_objekt = mang.objects.get(id=mangu_id)
-        mitmes = mangu_objekt.mitmes
-        print(mangu_objekt)
-        # Teeb listid värvide ja tähtedega template'i saatmiseks
-        sona1 = mangu_objekt.sona1
-        sona1.extend(mangu_objekt.sona1_varv)
-        sona2 = mangu_objekt.sona2
-        sona2.extend(mangu_objekt.sona2_varv)
-        sona3 = mangu_objekt.sona3
-        sona3.extend(mangu_objekt.sona3_varv)
-        sona4 = mangu_objekt.sona4
-        sona4.extend(mangu_objekt.sona4_varv)
-        sona5 = mangu_objekt.sona5
-        sona5.extend(mangu_objekt.sona5_varv)
-        context = {
-            "sona1": sona1,
-            "sona2": sona2,
-            "sona3": sona3,
-            "sona4": sona4,
-            "sona5": sona5,
-            "sonum": "Meil on "+str(sonade_arv+1)+" viietähelist sõna.",
-            "mitmes": mitmes,
-            "mangu_id": mangu_id,}
+        try:
+            mangu_objekt = mang.objects.get(id=mangu_id)
+            mitmes = mangu_objekt.mitmes
+            print(mangu_objekt)
+            # Teeb listid värvide ja tähtedega template'i saatmiseks
+            sona1 = mangu_objekt.sona1
+            sona1.extend(mangu_objekt.sona1_varv)
+            sona2 = mangu_objekt.sona2
+            sona2.extend(mangu_objekt.sona2_varv)
+            sona3 = mangu_objekt.sona3
+            sona3.extend(mangu_objekt.sona3_varv)
+            sona4 = mangu_objekt.sona4
+            sona4.extend(mangu_objekt.sona4_varv)
+            sona5 = mangu_objekt.sona5
+            sona5.extend(mangu_objekt.sona5_varv)
+            context = {
+                "sona1": sona1,
+                "sona2": sona2,
+                "sona3": sona3,
+                "sona4": sona4,
+                "sona5": sona5,
+                "sonum": "Meil on "+str(sonade_arv+1)+" viietähelist sõna.",
+                "mitmes": mitmes,
+                "mangu_id": mangu_id,}
+            return render(request, "wordle/wordle.html", context)
+        except:
+            return HttpResponseRedirect(reverse("valik/viga1"))
     else:
-        mitmes_suvaline = r.randint(0, sonade_arv)
-        oige_sona  = sonade_list[mitmes_suvaline]
         uus_mang = mang(oige_sona=oige_sona)
         uus_mang.save()
         mangu_id = uus_mang.id
         mitmes = 1
         print(uus_mang)
         context = {"sonum": "Meil on "+str(sonade_arv+1)+" viietähelist sõna.", "mitmes": mitmes, "mangu_id": mangu_id,}
-    return render(request, "wordle/wordle.html", context)
+        return render(request, "wordle/wordle.html", context)
 
 def kontroll(request):
     if request.method=="POST":
