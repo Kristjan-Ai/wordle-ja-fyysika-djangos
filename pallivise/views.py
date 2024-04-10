@@ -34,10 +34,30 @@ def pall(v0,a1,h,g): # v0 - algkiirus (m/s); a1 - viskenurk (°); h - viskekõrg
 
     return {'H':H, 't':t, 'l1':l1, 'L':L, 'T':T, 'v':v, 'a2':a2, 'valem':valem}
 
-def home(request):
-    return render(request, 'home.html')
+def avarii(v, m, d):
+    v = v/3.6
+    F = (m*v*v)/(2*d)
+    t = (m*v/F)*1000
+    a = F/m
+    Fm = (m*a)/9.81
+    return {'F':F, 't':t, 'a': a, 'Fm':Fm}
+    
 
-def calculate(request):
+def autoavarii(request):
+    if request.method == 'POST':
+        v = float(request.POST.get('auto_kiirus'))
+        m = float(request.POST.get('kaal'))
+        turvavoo = request.POST.get('turvavoo')
+        if turvavoo == 'jah':
+            d = 0.04
+        if turvavoo == 'ei':
+            d = 0.2
+            
+        return render(request, 'autoavarii.html', {'loogijoud': avarii(v,m,d)['F'], 'peatumisaeg': avarii(v,m,d)['t'], 'aeglustus': avarii(v,m,d)['a'], 'surumismass': avarii(v,m,d)['Fm']}) 
+        
+    return render(request, 'autoavarii.html')
+
+def pallivise(request):
     if request.method == 'POST':
         v0 = float(request.POST.get('algkiirus'))
         h = float(request.POST.get('korgus'))
@@ -85,7 +105,7 @@ def calculate(request):
         buffer.close()
 
         # graafiku ja andmete HTML-i edastamine
-        return render(request, 'home.html', {'kaugus': pall(v0,a1,h,g)['L'], 'aeg_lennul': pall(v0,a1,h,g)['T'], 'max_korgus': pall(v0,a1,h,g)['H'], 'aeg_haripunktis': pall(v0,a1,h,g)['t'], 'kaugus_haripunktis': pall(v0,a1,h,g)['l1'], 'loppkiirus': pall(v0,a1,h,g)['v'], 'maandumisnurk': pall(v0,a1,h,g)['a2'], 'algkiirus': v0, 'korgus': h, 'nurk': a1, 'planeet': planeet, 'graafik': image_base64})
+        return render(request, 'pallivise.html', {'kaugus': pall(v0,a1,h,g)['L'], 'aeg_lennul': pall(v0,a1,h,g)['T'], 'max_korgus': pall(v0,a1,h,g)['H'], 'aeg_haripunktis': pall(v0,a1,h,g)['t'], 'kaugus_haripunktis': pall(v0,a1,h,g)['l1'], 'loppkiirus': pall(v0,a1,h,g)['v'], 'maandumisnurk': pall(v0,a1,h,g)['a2'], 'algkiirus': v0, 'korgus': h, 'nurk': a1, 'planeet': planeet, 'graafik': image_base64})
 
-    return render(request, 'home.html')
+    return render(request, 'pallivise.html')
 
