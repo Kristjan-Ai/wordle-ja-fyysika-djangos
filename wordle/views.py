@@ -7,12 +7,14 @@ from Sõnade_loend.valmis_sonad import sonade_list
 import random as r
 
 # Create your views here.
-def valik(request, viga):
-    vead = {
-        1:"Sellise id-ga mängu ei ole!"
-    }
-    sonum = vead[viga]
-    return render(request, "wordle/valik.html", sonum)
+def valik(request):
+    if "viga" in request.session:
+        viga =request.session["viga"]
+        if viga[1]==1:
+            del request.session["viga"]
+        elif viga[1]==0:
+            request.session["viga"]=[viga[0],viga[1]+1]
+        return render(request, "wordle/valik.html")
 
 def algus(request):
     sonade_arv = len(sonade_list)-1
@@ -47,7 +49,8 @@ def algus(request):
                 "mangu_id": mangu_id,}
             return render(request, "wordle/wordle.html", context)
         except:
-            return HttpResponseRedirect(reverse("valik/viga1"))
+            request.session["viga"]=["Sellise id-ga mängu ei ole!",0]
+            return HttpResponseRedirect(reverse("valik"))
     else:
         uus_mang = mang(oige_sona=oige_sona)
         uus_mang.save()
