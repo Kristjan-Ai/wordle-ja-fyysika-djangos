@@ -37,7 +37,7 @@ def pall(v0,a1,h,g): # v0 - algkiirus (m/s); a1 - viskenurk (°); h - viskekõrg
 def home(request):
     return render(request, 'home.html')
 
-def calculate(request):
+def pallivise(request):
     if request.method == 'POST':
         v0 = float(request.POST.get('algkiirus'))
         h = float(request.POST.get('korgus'))

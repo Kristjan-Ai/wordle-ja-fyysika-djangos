@@ -8,7 +8,7 @@
         <h1>Palliviske kalkulaator</h1>
     </div>
     <div class="container">
-        <form method="POST" action="{% url 'calculate' %}">
+        <form method="POST" action="{% url 'pallivise' %}">
             <p>Komakoht eralda punktiga!</p>
             {% csrf_token %}
             <div class="textivali">
