@@ -16,10 +16,11 @@ body {
 }
 
 .textivali {
-     align-items: center;
-     font-family: 'Philosopher';
-     margin-bottom: 10px;
-     color:rgb(241, 247, 225);
+    text-align: center;
+    align-items: center;
+    font-family: 'Philosopher';
+    margin-bottom: 10px;
+    color:rgb(241, 247, 225);
 }
 .text1 {
     font-weight: bold;

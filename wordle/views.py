@@ -14,7 +14,7 @@ def valik(request):
             del request.session["viga"]
         elif viga[1]==0:
             request.session["viga"]=[viga[0],viga[1]+1]
-        return render(request, "wordle/valik.html")
+    return render(request, "wordle/valik.html")
 
 def algus(request):
     sonade_arv = len(sonade_list)-1

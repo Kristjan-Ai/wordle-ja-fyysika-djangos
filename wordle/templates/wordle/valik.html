@@ -3,6 +3,7 @@
     <head>
         {% load static %}
         <link rel="stylesheet" href="{% static 'wordle/valik.css' %}">
+        <title>Pealeht</title>
     </head>
     <body style="background-image: url({% static 'wordle/taustapilt.jpeg' %});">
     <div class="block">
@@ -19,8 +20,9 @@
     </form>
     </div>
     <div class="block">
-        <h2>Palliviske simulaator</h2>
-        <a class="link" href="{%url "pallivise"%}">Füüsika</a>
+        <h2>Füüsikaülesannete lahendajad</h2>
+        <a class="link" href="{%url "pallivise"%}">Palliviske simulaator</a>
+        <a class="link" href="{%url "autoavarii"%}">Autoavarii simulaator</a>
     </div>
 </body>
 </html>

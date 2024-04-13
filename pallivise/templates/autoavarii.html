@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@700&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Philosopher:ital,wght@0,400;0,700;1,400;1,700&family=Pixelify+Sans:wght@700&display=swap" rel="stylesheet">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'pallivise\autoavarii.css' %}"> 
+    <title>Autoavarii</title>
+</head>
+<body>
+    <div class="header">
+        <h1>Autoavarii kalkulaator</h1>
+    </div>
+    <div class="container">
+        <form method="POST" action="{% url 'autoavarii' %}">
+            <p class="text1">Komakoht eralda punktiga!</p>
+            {% csrf_token %}
+            <div class="textivali">
+                <label for="auto_kiirus" class="text1">Auto kiirus:</label>
+                <input type="text" id="auto_kiirus" name="auto_kiirus" placeholder="Sisesta auto kiirus">
+                <span class="unit">km/h</span>  
+            </div>
+
+            <div class="textivali">
+                <label for="kaal" class="text1">Kaal:</label>
+                <input type="text" id="kaal" name="kaal" placeholder="Sisesta enda kaal">
+                <span class="unit">kg</span>  
+            </div>
+
+            <div class="dropdown">
+                <select name="turvavoo" id="turvavoo">
+                    <option value="jah">Kannan turvavööd</option>
+                    <option value="ei">Ei kanna turvavööd</option>
+                </select>
+            </div>
+
+            <div class="textivali">
+                <button type="submit" class="nupp">Kalkuleeri</button>
+            </div>
+        </form>
+        {% if loogijoud %}
+        <div class="tulemus">
+            <h3>Tulemus</h3>
+            <div class="kast">
+
+                    <p>Keskmine löögijõud: {{ loogijoud|floatformat:4 }} N</p>
+                    <p>Peatumisaeg: {{ peatumisaeg|floatformat:4 }} ms</p>
+                    <p>Aeglustus: {{ aeglustus|floatformat:4 }} m/s²</p>
+                    <p>Tundub nagu surutakse massiga: {{ surumismass|floatformat:4 }} kg</p>
+
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>

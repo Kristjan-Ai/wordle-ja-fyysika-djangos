@@ -19,4 +19,5 @@ from . import views
 
 urlpatterns = [
     path('pallivise/', views.pallivise, name='pallivise'),
+    path('autoavarii/', views.autoavarii, name='autoavarii'),
 ]

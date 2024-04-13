@@ -34,8 +34,12 @@ def pall(v0,a1,h,g): # v0 - algkiirus (m/s); a1 - viskenurk (°); h - viskekõrg
 
     return {'H':H, 't':t, 'l1':l1, 'L':L, 'T':T, 'v':v, 'a2':a2, 'valem':valem}
 
-def home(request):
-    return render(request, 'home.html')
+def avarii(v, m, d):
+    F = (m*v*v)/(2*d)
+    t = (m*v/F)*1000
+    a = F/m
+    Fm = (m*a)/9.81
+    return {'F':F, 't':t, 'a': a, 'Fm':Fm}
 
 def pallivise(request):
     if request.method == 'POST':
@@ -43,34 +47,26 @@ def pallivise(request):
         h = float(request.POST.get('korgus'))
         a1 = float(request.POST.get('nurk'))
         planeet = request.POST.get('planeet')
-
-        if planeet == 'merkuur':
-            g = 3.7
-        elif planeet == 'veenus':
-            g = 8.87
-        elif planeet == 'maa':
-            g = 9.81
-        elif planeet == 'marss':
-            g = 3.71
-        elif planeet == 'jupiter':
-            g = 24.79
-        elif planeet == 'saturn':
-            g = 10.44
-        elif planeet == 'uraan':
-            g = 8.69
-        elif planeet == 'neptuun':
-            g = 11.15
-        elif planeet == 'pluuto':
-            g = 0.62
-        elif planeet == 'kuu':
-            g = 1.62
-        elif planeet == 'paike':
-            g = 274
+        kiirendused = {
+            'merkuur':3.7,
+            'veenus':8.87,
+            'maa':9.81,
+            'marss':3.71,
+            'jupiter':24.79,
+            'saturn':10.44,
+            'uraan':8.69,
+            'neptuun':11.15,
+            'pluuto':0.62,
+            'kuu':1.62,
+            'paike':274.0,
+        }
+        g = kiirendused[planeet]
+        tulemused = pall(v0,a1,h,g)
 
         # graafiku joonestamine
         plt.clf()
-        x  = np.linspace(0,pall(v0,a1,h,g)['L'],100)
-        y = eval(pall(v0,a1,h,g)['valem'])
+        x  = np.linspace(0,tulemused['L'],100)
+        y = eval(tulemused['valem'])
         plt.plot(x,y)
         plt.grid(True)
         plt.title('Palli trajektoor')
@@ -83,9 +79,42 @@ def pallivise(request):
         buffer.seek(0)
         image_base64 = base64.b64encode(buffer.read()).decode('utf-8')
         buffer.close()
-
+        context = {
+            'kaugus': tulemused['L'],
+             'aeg_lennul': tulemused['T'],
+             'max_korgus': tulemused['H'],
+             'aeg_haripunktis': tulemused['t'],
+             'kaugus_haripunktis': tulemused['l1'],
+             'loppkiirus': tulemused['v'],
+             'maandumisnurk': tulemused['a2'],
+             'algkiirus': v0,
+             'korgus': h,
+             'nurk': a1,
+             'planeet': planeet,
+             'graafik': image_base64,
+        }
         # graafiku ja andmete HTML-i edastamine
-        return render(request, 'home.html', {'kaugus': pall(v0,a1,h,g)['L'], 'aeg_lennul': pall(v0,a1,h,g)['T'], 'max_korgus': pall(v0,a1,h,g)['H'], 'aeg_haripunktis': pall(v0,a1,h,g)['t'], 'kaugus_haripunktis': pall(v0,a1,h,g)['l1'], 'loppkiirus': pall(v0,a1,h,g)['v'], 'maandumisnurk': pall(v0,a1,h,g)['a2'], 'algkiirus': v0, 'korgus': h, 'nurk': a1, 'planeet': planeet, 'graafik': image_base64})
+        return render(request, 'pallivise.html', context)
+    else:
+        return render(request, 'pallivise.html')
 
-    return render(request, 'home.html')
+def autoavarii(request):
+    if request.method == 'POST':
+        v = float(request.POST.get('auto_kiirus'))
+        m = float(request.POST.get('kaal'))
+        turvavoo = request.POST.get('turvavoo')
+        if turvavoo == 'jah':
+            d = 0.04
+        if turvavoo == 'ei':
+            d = 0.2
+        avarii_andmed = avarii(v,m,d)
+        context = {
+            'loogijoud': avarii_andmed['F'],
+            'peatumisaeg': avarii_andmed['t'],
+            'aeglustus': avarii_andmed['a'],
+            'surumismass': avarii_andmed['Fm'],
+            }
+        return render(request, 'autoavarii.html', context) 
+    else:
+        return render(request, 'autoavarii.html') 
 
