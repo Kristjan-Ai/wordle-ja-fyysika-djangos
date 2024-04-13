@@ -10,7 +10,7 @@
     <h2>Eestikeelne wordle</h2>
     <form action="{%url "algus"%}" method="POST">
         {% csrf_token %}
-        <div class="item"><input class="link" type="submit" id="vali" name="submit" value="Alusta mängu"></div>
+        <div class="item"><input class="link" type="submit" id="vali" name="submit" value="Alusta või vali mäng"></div>
         <b>Vali mäng id-ga:</b>
         <div class="tooltip">
             <input type="number" id="mangu_id" name="mangu_id" value="" autocomplete="off" autofocus="True">

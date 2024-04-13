@@ -38,13 +38,19 @@ def algus(request):
             sona4.extend(mangu_objekt.sona4_varv)
             sona5 = mangu_objekt.sona5
             sona5.extend(mangu_objekt.sona5_varv)
+            if mangu_objekt.arvatud:
+                sonum = "Arvasid ära!"
+            elif mangu_objekt.mang_labi:
+                sonum = "Mäng läbi! Õige sõna oli "+mangu_objekt.oige_sona+" 🤦"
+            else:
+                sonum = "Meil on "+str(sonade_arv+1)+" viietähelist sõna."
             context = {
                 "sona1": sona1,
                 "sona2": sona2,
                 "sona3": sona3,
                 "sona4": sona4,
                 "sona5": sona5,
-                "sonum": "Meil on "+str(sonade_arv+1)+" viietähelist sõna.",
+                "sonum": sonum,
                 "mitmes": mitmes,
                 "mangu_id": mangu_id,}
             return render(request, "wordle/wordle.html", context)
@@ -65,7 +71,6 @@ def kontroll(request):
         mangu_id = request.POST.get("mangu_id")
         mangu_objekt = mang.objects.get(id=mangu_id)
         mitmes = mangu_objekt.mitmes
-        print("mitmes:", mitmes)
         sona = request.POST.get("taht1")+request.POST.get("taht2")+request.POST.get("taht3")+request.POST.get("taht4")+request.POST.get("taht5")
         oige_sona = mangu_objekt.oige_sona
         #salvesta sona vastavalt mitmes on ning leia oiged varvid kastide jaoks
@@ -188,8 +193,6 @@ def kontroll(request):
                         mitmes_taht += 1
             else:
                 sona_pole = True
-        else:
-            print("MITMES ON KATKI - väärtus: "+str(mitmes))
         print(mangu_objekt)
 
         #teeb listid tahtede ja varvidega
@@ -224,9 +227,13 @@ def kontroll(request):
         }
         if sona == oige_sona:
             context.update({"sonum": "Arvasid ära!"})
+            mangu_objekt.arvatud = True
+            mangu_objekt.save()
             return render(request, "wordle/wordle.html", context)
         elif mitmes > 5:
             context.update({"sonum": ("Mäng läbi! Õige sõna oli "+oige_sona+" 🤦")})
+            mangu_objekt.mang_labi = True
+            mangu_objekt.save()
             return render(request, "wordle/wordle.html", context)
         else:
             return render(request, "wordle/wordle.html", context)

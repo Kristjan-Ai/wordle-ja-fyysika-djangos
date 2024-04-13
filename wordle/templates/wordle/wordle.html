@@ -152,7 +152,7 @@
     {%if sonum != "Arvasid ära!" and mitmes < 6%}
         <form action="{%url "kontroll"%}" method="POST">
             {% csrf_token %}
-            <div class="Row">
+            <div class="Row sisend">
                 <input class="Row-letter-input" type="text" name="taht1" value="" maxlength="1" autocomplete="off" autofocus="True">
                 <input class="Row-letter-input" type="text" name="taht2" value="" maxlength="1" autocomplete="off">
                 <input class="Row-letter-input" type="text" name="taht3" value="" maxlength="1" autocomplete="off">
@@ -170,20 +170,41 @@
     {%else%}
     <div style="margin-top: 1%;">
     <b>{{sonum}}</b>
-    <a href="{%url "algus"%}">Uus mäng</a>
+    <p><a href="{%url "algus"%}">Uus mäng</a></p>
     </div>
     {%endif%}
     
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
         <script>
-            $(document).ready(function(){
-                $('input').keyup(function(){
-                    if($(this).val().length==$(this).attr("maxlength")){
-                        $(this).next().focus();
+        var container = document.getElementsByClassName("sisend")[0];
+        container.onkeyup = function(e) {
+            var target = e.srcElement || e.target;
+            var maxLength = parseInt(target.attributes["maxlength"].value, 10);
+            var myLength = target.value.length;
+            if (myLength >= maxLength) {
+                var next = target;
+                while (next = next.nextElementSibling) {
+                    if (next == null)
+                        break;
+                    if (next.tagName.toLowerCase() === "input") {
+                        next.focus();
+                        break;
                     }
-                });
-            });
+                }
+            }
+            // Move to previous field if empty (user pressed backspace)
+            else if (myLength === 0) {
+                var previous = target;
+                while (previous = previous.previousElementSibling) {
+                    if (previous == null)
+                        break;
+                    if (previous.tagName.toLowerCase() === "input") {
+                        previous.focus();
+                        break;
+                    }
+                }
+            }
+        }
         </script>
     </body>
 </html>
