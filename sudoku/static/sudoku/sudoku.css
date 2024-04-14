@@ -1,0 +1,77 @@
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+body {
+    display: grid;
+    justify-items: center;
+    align-items: center;
+}
+.top_of_page {
+    height: 100px;
+}
+#board {
+    padding: 7px;
+    background: black;
+    display: grid;
+    grid-template-rows: repeat(9, auto);
+    grid-template-columns: repeat(9, auto);
+    column-gap: 2px;
+    row-gap: 2px;
+    font-size: large;
+    margin-bottom: 70px;
+}
+.button {
+    position:absolute;
+    transform: translate(195%,-20%);
+}
+.cell {
+    width: 50px;
+    height: 50px;
+    background: white;
+    display: grid;
+    justify-items: center;
+    align-items: right;
+    font-size: 30px;
+    text-align: center;
+    
+}
+
+.fixed {
+    font-weight: bold;
+}
+
+.cell:hover {
+    background: rgb(214, 233, 240);
+}
+
+.cell:focus {
+    background: lightblue;
+}
+
+.cell:nth-child(3n):not(:nth-child(9n)) {
+    margin-right: 3px;
+}
+
+.cell:nth-child(27n + 28),
+.cell:nth-child(27n + 29),
+.cell:nth-child(27n + 30),
+.cell:nth-child(27n + 31),
+.cell:nth-child(27n + 32),
+.cell:nth-child(27n + 33),
+.cell:nth-child(27n + 34),
+.cell:nth-child(27n + 35),
+.cell:nth-child(27n + 36) {
+    margin-top: 3px;
+}
+
+
+
