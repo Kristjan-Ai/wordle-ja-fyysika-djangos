@@ -18,18 +18,23 @@
     </div>
     <div class="container">
         <form method="POST" action="{% url 'pallivise' %}">
-            <p class="text1">Komakoht eralda punktiga!</p>
             {% csrf_token %}
-            <div class="textivali">
-                <div class="textivali"></div>
+            <a href="{% url 'valik' %}" class="homebutton">Avaleht</a>
+            <div class="textfield">
+                <div class="textfield"></div>
                 <label for="algkiirus" class="text1">Algkiirus:</label>
-                <input type="text" id="algkiirus" name="algkiirus" placeholder="SISESTA algkiirus">
+                <input type="text" id="algkiirus" name="algkiirus" placeholder="Sisesta algkiirus">
                 <span class="unit">m/s</span>
             </div>
 
                 <div class="textfield">
                     <label for="korgus" class="text">Viskekõrgus:</label>
                     <input type="text" id="korgus" name="korgus" placeholder="Sisesta viskekõrgus">
+                    <span class="unit">m</span>  
+                </div>
+                <div class="textfield">
+                    <label for="viskenurk" class="text">Viskenurk:</label>
+                    <input type="text" id="nurk" name="nurk" placeholder="Sisesta viskenurk">
                     <span class="unit">m</span>  
                 </div>
 

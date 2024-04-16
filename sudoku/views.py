@@ -93,7 +93,6 @@ def attempt_to_create_field():
                     if field[row][subrow][place] == 0:
                         return "unsuccessful"
     return field
-
 # infinite loop jooksutab create_field()'i nii kaua, kuni tagastatakse field
 # peaks aega võtma ca 1 sek
 def create_field():
@@ -103,20 +102,23 @@ def create_field():
             break
     return result
 
-# create_sudoku() tagastab field'i, millel on kindel arv lahtreid tühjaks tehtud ning subrow'd eemaldatud
+# tagastab ruudustiku, kus on osa ruute tühjaks tehtud 
 def create_sudoku(request):
-    if request.method == "POST":
-        field = create_field()
-        nr_of_empty_slots = 50
-        for i in range(9):
-            field[i] = field[i][0] + field[i][1] + field[i][2]
-        empty_slots = []
-        while len(empty_slots) < nr_of_empty_slots:
-            row, column = random.randint(0, 8), random.randint(0, 8)
-            if (row, column) not in empty_slots:
-                empty_slots.append((row, column))
-        for row, column in empty_slots:
-            field[row][column] = " "
-        return render(request, 'sudoku.html', {'field': field, 'i': 0})
-    return render(request, 'sudoku.html', {'field': [], 'i': 0})
+    field = create_field()
+    nr_of_empty_slots = 50
+    # eemaldame field'ilt subrow'd
+    for i in range(9):
+        field[i] = field[i][0] + field[i][1] + field[i][2]
+
+    empty_slots = []
+    while len(empty_slots) < nr_of_empty_slots:
+        row, column = random.randint(0, 8), random.randint(0, 8)
+        if (row, column) not in empty_slots:
+            empty_slots.append((row, column))
+
+    for row, column in empty_slots:
+        field[row][column] = " "
+
+    return render(request, 'sudoku.html', {'field': field })
+
 
