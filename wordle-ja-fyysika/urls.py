@@ -22,4 +22,5 @@ urlpatterns = [
     path("", views.valik, name="valik"),
     path("wordle/", include("wordle.urls")),
     path("fyysika/", include("pallivise.urls")),
+    path('sudoku/', include('sudoku.urls'))
 ]

@@ -4,7 +4,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@700&display=swap" rel="stylesheet">
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Philosopher:ital,wght@0,400;0,700;1,400;1,700&family=Pixelify+Sans:wght@700&display=swap" rel="stylesheet">
@@ -19,52 +18,51 @@
     </div>
     <div class="container">
         <form method="POST" action="{% url 'pallivise' %}">
-            <p class="text1">Komakoht eralda punktiga!</p>
             {% csrf_token %}
-            <div class="textivali">
-                <div class="textivali"></div>
+            <a href="{% url 'valik' %}" class="homebutton">Avaleht</a>
+            <div class="textfield">
+                <div class="textfield"></div>
                 <label for="algkiirus" class="text1">Algkiirus:</label>
-                <input type="text" id="algkiirus" name="algkiirus" placeholder="SISESTA algkiirus">
-                <span class="unit">m/s</span>  
+                <input type="text" id="algkiirus" name="algkiirus" placeholder="Sisesta algkiirus">
+                <span class="unit">m/s</span>
             </div>
 
-            <div class="textivali">
-                <label for="nurk" class="text1">Viskenurk:</label>
-                <input type="text" id="nurk" name="nurk" placeholder="Sisesta viskenurk">
-                <span class="unit">°</span>  
-            </div>
+                <div class="textfield">
+                    <label for="korgus" class="text">Viskekõrgus:</label>
+                    <input type="text" id="korgus" name="korgus" placeholder="Sisesta viskekõrgus">
+                    <span class="unit">m</span>  
+                </div>
+                <div class="textfield">
+                    <label for="viskenurk" class="text">Viskenurk:</label>
+                    <input type="text" id="nurk" name="nurk" placeholder="Sisesta viskenurk">
+                    <span class="unit">m</span>  
+                </div>
 
-            <div class="textivali">
-                <label for="korgus" class="text1">Viskekõrgus:</label>
-                <input type="text" id="korgus" name="korgus" placeholder="Sisesta viskekõrgus">
-                <span class="unit">m</span>  
-            </div>
+                <div class="dropdown">
+                    <select name="planeet" id="planeet">
+                        <option value="paike">Päike</option>
+                        <option value="merkuur">Merkuur</option>
+                        <option value="veenus">Veenus</option>
+                        <option value="maa" selected>Maa</option>
+                        <option value="kuu">Kuu</option>
+                        <option value="marss">Marss</option>
+                        <option value="jupiter">Jupiter</option>
+                        <option value="saturn">Saturn</option>
+                        <option value="uraan">Uraan</option>
+                        <option value="neptuun">Neptuun</option>
+                        <option value="pluuto">Pluuto</option>
+                    </select>
+                </div>
 
-            <div class="dropdown">
-                <select name="planeet" id="planeet">
-                    <option value="paike">Päike</option>
-                    <option value="merkuur">Merkuur</option>
-                    <option value="veenus">Veenus</option>
-                    <option value="maa" selected>Maa</option>
-                    <option value="kuu">Kuu</option>
-                    <option value="marss">Marss</option>
-                    <option value="jupiter">Jupiter</option>
-                    <option value="saturn">Saturn</option>
-                    <option value="uraan">Uraan</option>
-                    <option value="neptuun">Neptuun</option>
-                    <option value="pluuto">Pluuto</option>
-                </select>
-            </div>
-
-            <div class="textivali">
-                <button type="submit" class="nupp">Kalkuleeri</button>
+                <div class="textfield">
+                    <button type="submit" class="button">Kalkuleeri</button>
+                </div>
             </div>
         </form>
         {% if kaugus %}
-        <div class="tulemus">
-            <h3>Tulemus</h3>
-            <div class="kast">
-                
+        <div class="result">
+            <div class="box">
+                <div class="text">
                     <p>Viske kaugus: {{ kaugus|floatformat:4 }} m</p>
                     <p>Lennuaeg: {{ aeg_lennul|floatformat:4 }} s</p>
                     <p>Maksimaalne kõrgus: {{ max_korgus|floatformat:4 }} m</p>
@@ -72,11 +70,13 @@
                     <p>Läbitud horisontaalne kaugus haripunktis: {{ kaugus_haripunktis|floatformat:4 }} m</p>
                     <p>Lõppkiirus vahetult enne kokkupuudet maapinnaga: {{ loppkiirus|floatformat:4 }} m/s</p>
                     <p>Maandumisnurk: {{ maandumisnurk|floatformat:4 }}°</p>
-                    
+                </div>
                 {% endif %}
                 <div>
                     {% if graafik %}
+                    <div class="image">
                         <img src="data:image/png;base64,{{ graafik }}" alt="Graafik" />
+                    </div>
                     {% endif %}
                 </div>
             </div>
