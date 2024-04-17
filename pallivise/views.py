@@ -35,6 +35,7 @@ def pall(v0,a1,h,g): # v0 - algkiirus (m/s); a1 - viskenurk (°); h - viskekõrg
     return {'H':H, 't':t, 'l1':l1, 'L':L, 'T':T, 'v':v, 'a2':a2, 'valem':valem}
 
 def avarii(v, m, d):
+    v = v/3.6
     F = (m*v*v)/(2*d)
     t = (m*v/F)*1000
     a = F/m
@@ -104,9 +105,9 @@ def autoavarii(request):
         m = float(request.POST.get('kaal'))
         turvavoo = request.POST.get('turvavoo')
         if turvavoo == 'jah':
-            d = 0.04
-        if turvavoo == 'ei':
             d = 0.2
+        if turvavoo == 'ei':
+            d = 0.04
         avarii_andmed = avarii(v,m,d)
         context = {
             'loogijoud': avarii_andmed['F'],
